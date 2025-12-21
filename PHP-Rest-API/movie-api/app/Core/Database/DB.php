@@ -5,6 +5,8 @@ namespace App\Core\Database;
 use PDO;
 use PDOException;
 
+$config = require __DIR__ . '/../config.php';
+
 class DB
 {
     private static ?PDO $instance = null;
@@ -12,11 +14,11 @@ class DB
     public static function getInstance(): PDO
     {
         if (self::$instance === null) {
-            $host = 'localhost';
-            $dbname = 'movie_db';
-            $username = 'root';
-            $password = '';
-            $charset = 'utf8mb4';
+            $host = $config['db']['host'];
+            $dbname = $config['db']['name'];
+            $username = $config['db']['user'];
+            $password = $config['db']['pass'];
+            $charset = $config['db']['charset'];
 
             try {
                 self::$instance = new PDO("mysql:host=$host;dbname=$dbname;charset=$charset", $username, $password);

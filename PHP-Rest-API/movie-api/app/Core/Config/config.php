@@ -1,7 +1,5 @@
 <?php
 
-
-
 return [
     // Alkalmazás beállítások
     'app' => [
@@ -13,7 +11,7 @@ return [
     // Adatbázis beállítások
     'db' => [
         'host' => 'localhost',
-        'name' => 'movie_api', // adatbázis neve
+        'name' => 'movie_db', // adatbázis neve
         'user' => 'root',
         'pass' => '', // jelszó
         'charset' => 'utf8mb4',

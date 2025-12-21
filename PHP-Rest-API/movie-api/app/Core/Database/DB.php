@@ -5,8 +5,6 @@ namespace App\Core\Database;
 use PDO;
 use PDOException;
 
-$config = require __DIR__ . '/../config.php';
-
 class DB
 {
     private static ?PDO $instance = null;
@@ -14,6 +12,8 @@ class DB
     public static function getInstance(): PDO
     {
         if (self::$instance === null) {
+            $config = require __DIR__ . '/../Config/config.php';
+
             $host = $config['db']['host'];
             $dbname = $config['db']['name'];
             $username = $config['db']['user'];

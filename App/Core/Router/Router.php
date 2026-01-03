@@ -42,7 +42,7 @@ class Router
     public function dispatch(): void
     {
         $requestMethod = $_SERVER['REQUEST_METHOD'];
-        $base_uri = "/Rest-movie-API";
+        $base_uri = "/Rest-API"; // Az alkalmazás alap URI-je
         $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $requestUri = str_replace($base_uri, '', $requestUri);
 

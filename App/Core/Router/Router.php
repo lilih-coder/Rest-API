@@ -70,7 +70,7 @@ class Router
 
         // Ha nincs találat
         http_response_code(404);
-        echo json_encode(['error' => 'Route not found']);
+        echo json_encode(['error' => 'Route not found1']);
     }
 }
 

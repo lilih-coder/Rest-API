@@ -43,8 +43,6 @@ $router->add('DELETE', '/films/{id}', function ($id) {
 });
 
 // Stúdió útvonalak
-$router = new Router();
-
 
 $router->add('GET', '/studios', function () {
     $controller = new StudioController();
@@ -70,7 +68,6 @@ $router->add('DELETE', '/studios/{id}', function ($id) {
 });
 
 // Rendező útvonalak
-$router = new Router();
 $router->add('GET', '/directors', function () {
     $controller = new DirectorController();
     $controller->index();
@@ -95,7 +92,6 @@ $router->add('DELETE', '/directors/{id}', function ($id) {
 });
 
 // Kategória útvonalak
-$router = new Router();
 $router->add('GET', '/categories', function () {
     $controller = new CategoryController();
     $controller->index();

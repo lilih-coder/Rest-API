@@ -4,7 +4,7 @@ return [
     // Alkalmazás beállítások
     'appxxxx' => [
         'env' => 'development', // development | production
-        'base_url' => 'http://localhost/Rest-API/PHP-Rest-API/movie-api/',
+        'base_url' => 'http://localhost/Rest-API/public/index.php', // Alkalmazás alap URL-je
         'debug' => true, // Hibák kiírása fejlesztéshez
     ],
 

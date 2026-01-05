@@ -11,11 +11,47 @@ class FilmController
     {
         $this->filmModel = new FilmModel();
     }
-
+/*
     // GET /films
     public function index(array $filters = []): void
     {
         $films = $this->filmModel->getAllWithDetails($filters);
+        $this->sendResponse($films);
+    }
+*/
+
+    // GET /films
+    public function index(): void
+    {
+        // 1️⃣ GET paraméterek lekérése
+        $categoryId = isset($_GET['category_id']) && $_GET['category_id'] !== ''
+                    ? (int)$_GET['category_id']
+                    : null;
+
+        $directorId = isset($_GET['director_id']) && $_GET['director_id'] !== ''
+                    ? (int)$_GET['director_id']
+                    : null;
+
+        $studioId = isset($_GET['studio_id']) && $_GET['studio_id'] !== ''
+                    ? (int)$_GET['studio_id']
+                    : null;
+
+        $languageId = isset($_GET['language_id']) && $_GET['language_id'] !== ''
+                    ? (int)$_GET['language_id']
+                    : null;
+
+        // 2️⃣ Filter tömb összeállítása
+        $filters = [
+            'category_id' => $categoryId,
+            'director_id' => $directorId,
+            'studio_id'   => $studioId,
+            'language_id' => $languageId,
+        ];
+
+        // 3️⃣ Lekérés a Modeltől
+        $films = $this->filmModel->getAllWithDetails($filters);
+
+        // 4️⃣ JSON válasz
         $this->sendResponse($films);
     }
 

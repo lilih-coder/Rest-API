@@ -4,3 +4,16 @@
     composer dump-autoload      // parancsot
 - Utána ellenőrizni kell a base uri-t van egy mappa amire az Apache rá van irányítva, ha nincs
     átírva akkor ez a htaccess és azon belül már kell írni az összes mappát
+
+- Ha még mindig hiba van de a backend már fut akkor az app.js-ben ellenőrizni kell a base_uri-t 
+    a portnak is egyeznie kell pl 84
+
+
+
+==================         MÉG NINCS KÉSZ           =========================
+
+    => poszterek feltöltése az adatbázisba
+    => több tesztadat generálása
+    => előzetesek
+    => film adatlap kidolgozása
+    => szűrés

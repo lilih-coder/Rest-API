@@ -1,40 +1,80 @@
-// Backend URL – állítsd a saját backend path-ra
-const API_BASE_URL = '';
-// Egyszerű fetch wrapper
+// ===============================
+// API KONFIG
+// ===============================
+const API_BASE_URL = 'http://localhost:84/Rest-API';
+
 async function apiRequest(endpoint) {
-    const res = await fetch(API_BASE_URL + endpoint);
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    return res.json();
+    const response = await fetch(API_BASE_URL + endpoint);
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
 }
 
-// Render filmek listába
+// ===============================
+// FILM KÁRTYA
+// ===============================
+
+function createFilmCard(film) {
+    const card = document.createElement('div');
+    card.classList.add('film-card');
+
+    card.innerHTML = `
+        <div class="film-poster">
+        <img src="${film.poster_url}" alt="${film.title}">
+        </div>
+
+        <div class="film-title">${film.title}</div>
+        <div class="film-meta">Kategória: ${film.category_name}</div>
+        <div class="film-meta">Rendező: ${film.director_name}</div>
+    `;
+
+    return card;
+}
+
+
+// ===============================
+// FILMEK RENDERELÉSE
+// ===============================
+
 function renderFilms(films) {
-    const list = document.getElementById('filmList');
-    list.innerHTML = '';
+    const grid = document.getElementById('filmsGrid');
+    grid.innerHTML = '';
+
+    if (!films || films.length === 0) {
+        grid.innerHTML = '<p>Nincs találat.</p>';
+        return;
+    }
+
     films.forEach(film => {
-        const li = document.createElement('li');
-        li.textContent = `${film.title} (${film.category_name}) - ${film.director_name}`;
-        list.appendChild(li);
+        grid.appendChild(createFilmCard(film));
     });
 }
 
-// Lekéri a filmeket a backendtől
+// ===============================
+// FILMEK BETÖLTÉSE
+// ===============================
+
 async function loadFilms(categoryId = '') {
     let endpoint = '/films';
+
     if (categoryId) {
         endpoint += `?category_id=${categoryId}`;
     }
 
     try {
         const films = await apiRequest(endpoint);
-        console.log('Backend JSON response:', films); // konzolban is látszik
+        console.log('Films JSON:', films);
         renderFilms(films);
-    } catch (err) {
-        console.error('Fetch error:', err);
+    } catch (error) {
+        console.error('Film fetch error:', error);
     }
 }
 
-// Lekéri a kategóriákat és feltölti a legördülőt
+// ===============================
+// KATEGÓRIÁK
+// ===============================
+
 async function loadCategories() {
     try {
         const categories = await apiRequest('/categories');
@@ -42,23 +82,24 @@ async function loadCategories() {
 
         categories.forEach(cat => {
             const option = document.createElement('option');
-            option.value = cat.id;    // vagy cat.name, ha név alapján filterezel
+            option.value = cat.id;
             option.textContent = cat.name;
             select.appendChild(option);
         });
-    } catch (err) {
-        console.error('Category fetch error:', err);
+    } catch (error) {
+        console.error('Category fetch error:', error);
     }
 }
 
-// Szűrő esemény
+// ===============================
+// ESEMÉNYEK
+// ===============================
+
 document.getElementById('categoryFilter').addEventListener('change', (e) => {
-    const selected = e.target.value;
-    loadFilms(selected);
+    loadFilms(e.target.value);
 });
 
-// Fő betöltés
 document.addEventListener('DOMContentLoaded', async () => {
-    await loadCategories();   // először a kategóriák
-    await loadFilms();        // majd minden film
+    await loadCategories();
+    await loadFilms();
 });

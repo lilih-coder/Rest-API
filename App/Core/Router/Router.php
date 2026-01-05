@@ -42,7 +42,7 @@ class Router
     public function dispatch(): void
     {
         $requestMethod = $_SERVER['REQUEST_METHOD'];
-        $base_uri = "/ED/Rest-API"; // Az alkalmazás alap URI-je
+        $base_uri = "/Rest-API"; // Az alkalmazás alap URI-je
         $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $requestUri = str_replace($base_uri, '', $requestUri);
 
@@ -70,7 +70,7 @@ class Router
 
         // Ha nincs találat
         http_response_code(404);
-        echo json_encode(['error' => 'Route not found1']);
+        echo json_encode(['error' => 'Route not found1 (Router.php)']);
     }
 }
 

@@ -2,23 +2,28 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>Film lista teszt</title>
-    <style>
-        body { font-family: sans-serif; margin: 20px; }
-        select { margin-bottom: 10px; }
-    </style>
+    <title>Filmkatalógus</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Film lista teszt</h1>
 
-    <label for="categoryFilter">Kategória:</label>
-    <select id="categoryFilter">
-        <option value="">Összes</option>
-    </select>
+    <div class="page-container">
 
-    <ul id="filmList">
-        <!-- Ide kerülnek a filmek -->
-    </ul>
+        <h1 class="page-title">🎬 Film katalógus</h1>
+
+        <div class="filter-bar">
+            <label for="categoryFilter">Kategória:</label>
+            <select id="categoryFilter">
+                <option value="">Összes</option>
+            </select>
+        </div>
+
+        <div id="filmsGrid" class="films-grid">
+
+            <!-- Kártyák ide kerülnek -->
+        </div>
+
+    </div>
 
     <script type="module" src="js/app.js"></script>
 </body>

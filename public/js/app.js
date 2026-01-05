@@ -1,7 +1,7 @@
 // ===============================
 // API KONFIG
 // ===============================
-const API_BASE_URL = 'http://localhost:84/Rest-API';
+const API_BASE_URL = 'http://localhost:8000/Rest-API';
 
 async function apiRequest(endpoint) {
     const response = await fetch(API_BASE_URL + endpoint);

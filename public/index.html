@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="hu">
 <head>
@@ -19,10 +20,76 @@
         </div>
 
         <div id="filmsGrid" class="films-grid">
-
-            <!-- Kártyák ide kerülnek -->
         </div>
 
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Filmkatalógus</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="page-container">
+        <header class="page-header">
+            <h1>🎬 Film katalógus</h1>
+        </header>
+
+        <div class="content-wrapper">
+            
+            <!-- Középső rész -->
+            <main class="main-content">
+                <section class="welcome-section">
+                    <h2>Üdvözlünk a Filmkatalógusban!</h2>
+                    <p>Fedezd fel a legjobb filmeket!</p>
+                </section>
+
+                <section id="filmsGrid" class="films-grid">
+                    <!-- Film kártyák ide kerülnek -->
+                </section>
+            </main>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3>Keresés</h3>
+                    <input type="text" id="searchInput" placeholder="Film keresése..." class="search-input">
+                </div>                
+                <div class="sidebar-section">
+                    <h3>Szűrők</h3>
+                    <div class="filter-bar">
+                        <label for="categoryFilter">Kategória:</label>
+                        <select id="categoryFilter" class="filter-select">
+                            <option value="">Összes</option>
+                        </select>
+                    </div>
+            
+                    <div id="filmsGrid" class="films-grid">
+                    </div>
+                    <p>Placeholder: kategória, év, műfaj stb.</p>
+                </div>
+                <div class="sidebar-section">
+                    <h3>Kedvencek</h3>
+                    <p>Placeholder: kedvenc filmek listája</p>
+                </div>
+                <div class="sidebar-section">
+                    <h3>Értékelés</h3>
+                    <p>Placeholder: film értékelések</p>
+                </div>
+                <div class="sidebar-section">
+                    <h3>Ajánlások</h3>
+                    <p>Placeholder: ajánlott filmek</p>
+                </div>                
+            </aside>
+
+        </div>
     </div>
 
     <script type="module" src="js/app.js"></script>

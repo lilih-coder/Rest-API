@@ -1,11 +1,16 @@
 // ===============================
 // API KONFIG
 // ===============================
-const API_BASE_URL = 'http://localhost:8000/Rest-API';
+const API_BASE_URL = 'http://localhost/Rest-API';
 
 async function apiRequest(endpoint) {
-    const response = await fetch(API_BASE_URL + endpoint);
+    const url = API_BASE_URL + endpoint;
+    console.log('[apiRequest] GET', url);
+    const response = await fetch(url);
     if (!response.ok) {
+        console.error('[apiRequest] Response not ok', response.status);
+        const text = await response.text().catch(() => null);
+        console.error('[apiRequest] body:', text);
         throw new Error(`HTTP error! status: ${response.status}`);
     }
     return response.json();
@@ -95,11 +100,71 @@ async function loadCategories() {
 // ESEMÉNYEK
 // ===============================
 
-document.getElementById('categoryFilter').addEventListener('change', (e) => {
-    loadFilms(e.target.value);
-});
+const categorySelect = document.getElementById('categoryFilter');
+if (categorySelect) {
+    categorySelect.addEventListener('change', (e) => {
+        loadFilms(e.target.value);
+    });
+} else {
+    console.warn('[init] categoryFilter not found');
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
-    await loadCategories();
-    await loadFilms();
+    try {
+        await loadCategories();
+        await loadFilms();
+
+        const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        const debouncedSearch = debounce((value) => searchFilms(value), 300);
+        searchInput.addEventListener('input', (e) => {
+            const value = e.target.value.trim();
+            debouncedSearch(value);
+        });
+
+        // Ha Enter-t nyomnak, azonnal keresünk
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                searchFilms(e.target.value.trim());
+            }
+        });
+    }
+    } catch (err) {
+        console.error('[DOMContentLoaded] init error', err);
+    }
 });
+
+// ===============================
+// KERESÉS
+// ===============================
+
+function debounce(fn, delay = 300) {
+    let timeout;
+    return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            try {
+                fn(...args);
+            } catch (err) {
+                console.error('[debounce] handler error', err);
+            }
+        }, delay);
+    };
+}
+
+async function searchFilms(keyword) {
+    if (!keyword) {
+        await loadFilms();
+        return;
+    }
+
+    try {
+        const encoded = encodeURIComponent(keyword);
+        console.log('[searchFilms] keyword:', keyword, 'encoded:', encoded);
+        const films = await apiRequest(`/films/search/${encoded}`);
+        console.log('[searchFilms] results count:', Array.isArray(films) ? films.length : 0);
+        renderFilms(films);
+    } catch (error) {
+        console.error('[searchFilms] Search error:', error);
+    }
+}

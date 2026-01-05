@@ -113,4 +113,26 @@ public function getAllWithDetails(array $filters = []): array
     {
         return $this->delete($id);
     }
+
+    public function searchFilm(string $keyword): array
+    {
+        $sql = "
+            SELECT movies.*, 
+                   studios.name AS studio_name, 
+                   directors.name AS director_name,
+                   categories.name AS category_name, 
+                   languages.name AS language_name
+            FROM movies
+            LEFT JOIN studios ON movies.studio_id = studios.id
+            LEFT JOIN directors ON movies.director_id = directors.id
+            LEFT JOIN categories ON movies.category_id = categories.id
+            LEFT JOIN languages ON movies.language_id = languages.id
+            WHERE movies.title LIKE :keyword OR movies.description LIKE :keyword
+            ORDER BY movies.title
+        ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['keyword' => '%' . $keyword . '%']);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

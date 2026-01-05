@@ -103,4 +103,12 @@ class FilmController
         echo json_encode($data);
         exit;
     }
+
+    public function search(string $keyword): void
+    {
+        // A router param lehet URL-enkódött (pl. szóköz -> %20)
+        $keyword = urldecode($keyword);
+        $results = $this->filmModel->searchFilm($keyword);
+        $this->sendResponse($results);
+    }
 }

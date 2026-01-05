@@ -117,6 +117,13 @@ $router->add('DELETE', '/categories/{id}', function ($id) {
     $controller->destroy($id);
 });
 
+/* Search  film by title*/
+
+$router->add('GET', '/films/search/{keyword}', function ($keyword) {
+    $controller = new FilmController();
+    $controller->search($keyword);
+});
+
 /*
 $router->add('GET', '/studios', function () {
     $controller = new SturioController();

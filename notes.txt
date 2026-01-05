@@ -17,3 +17,5 @@
     => előzetesek
     => film adatlap kidolgozása
     => szűrés
+
+Oldal architektúra?

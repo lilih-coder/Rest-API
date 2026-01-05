@@ -1,0 +1,6 @@
+- Amikor git clone-t használok a gitignore-ban szándékosan benne van a vendor
+    szóval mindig a projekt gyökérkönyvtárából indítani kell egy cmd-t és futtatni a:
+
+    composer dump-autoload      // parancsot
+- Utána ellenőrizni kell a base uri-t van egy mappa amire az Apache rá van irányítva, ha nincs
+    átírva akkor ez a htaccess és azon belül már kell írni az összes mappát

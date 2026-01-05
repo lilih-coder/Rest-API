@@ -2,16 +2,18 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-//use App\Core\Request;
-//use App\Core\Response;
+// ----------------- CORS beállítások -----------------
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Content-Type: application/json; charset=UTF-8");
+// ----------------------------------------------------
+
 use App\Core\Controllers\FilmController;
 use App\Core\Controllers\StudioController;
 use App\Core\Controllers\DirectorController;
 use App\Core\Controllers\CategoryController;
 use App\Core\Router\Router;
-
-header('Content-Type: application/json; charset=utf-8');
-
 
 // Film útvonalak
 $router = new Router();
